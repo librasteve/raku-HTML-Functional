@@ -22,8 +22,8 @@ TODOS
 =====
 
 - [x] move out to HTML::Functional
-- [ ] Do the ¶ term for HTML::Escape
-- [ ] unify tag routines with HTML::OO
+- [x] Do the ¶ term for HTML::Escape
+- [x] unify tag routines with HTML::OO
 - [ ] add pico tags (or tag factory)
 
 Contributions welcome - by PR please if possible.

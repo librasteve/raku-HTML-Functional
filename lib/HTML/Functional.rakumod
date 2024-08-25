@@ -1,5 +1,7 @@
 unit class HTML::Functional;
 
+use HTML::Escape;
+
 ##### Declare Constants #####
 
 #| viz. https://www.w3schools.com/tags/default.asp
@@ -13,6 +15,12 @@ constant @all-tags = <a abbr address area article aside audio b base bdi bdo blo
 
 #| of which "empty" / "singular" tags from https://www.tutsinsider.com/html/html-empty-elements/
 constant @singular-tags = <area base br col embed hr img input link meta param source track wbr>;
+
+##### HTML Escape #####
+
+multi prefix:<§>(Str:D() $s) is export {
+    escape-html($s)
+}
 
 ##### HTMX Tag Export #####
 
