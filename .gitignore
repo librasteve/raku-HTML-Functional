@@ -1,7 +1,7 @@
 .DS_Store
 .precomp
 .lib/precomp
-.swp
+*.swp
 .ipynb_checkpoints/*
 .log
 .p6.swp
@@ -10,3 +10,5 @@
 .json.swp
 .yaml.swp
 .pem
+.idea/
+*.iml
