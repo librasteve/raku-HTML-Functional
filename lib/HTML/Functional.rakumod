@@ -18,42 +18,43 @@ constant @singular-tags = <area base br col embed hr img input link meta param s
 
 ##### HTML Escape #####
 
-multi prefix:<§>(Str:D() $s) is export {
+multi prefix:<^>(Str:D() $s) is export {
+    escape-html($s)
+}
+
+sub text(Str:D() $s) is export {
     escape-html($s)
 }
 
 ##### HTMX Tag Export #####
 
-my @regular-tags = (@all-tags.Set (-) @singular-tags.Set).keys;
+my @regular-tags = (@all-tags (-) @singular-tags).keys;  #Set difference
 
-# Export them so that `h1("text")` makes `<h1>text</h1>` and so on
-# eg sub h1(Str $inner) {do-tag 'h1', $inner}
-# inners are already Str
 
 sub attrs(%h) {
     +%h ?? (' ' ~ %h.map({.key ~ '="' ~ .value ~ '"'}).join(' ') ) !! ''
 }
 
-sub do-regular-tag( $tag, *@inners, *%h ) {
-
-    my $opener = '<'  ~ $tag ~ attrs(%h) ~ '>';
-    my $closer = '</' ~ $tag ~ '>';
-
-    given @inners {
-        when * <= 1 {
-            $opener ~ @inners.join ~ $closer
-        }
-        when * >= 2 {
-            $opener ~ "\n  " ~ @inners.join("\n  ") ~ "\n" ~ $closer
-        }
-    }
-
+sub opener($tag, *%h) {
+    '<' ~ $tag ~ attrs(%h) ~ '>'
 }
 
-sub do-singular-tag( $tag, *%h ) {
+sub closer($tag) {
+    '</' ~ $tag ~ '>'
+}
 
-    '<' ~ $tag ~ attrs(%h) ~ ' />'
-
+sub do-regular-tag( $tag, *@inners, *%h ) {
+    given @inners {
+        when * == 0 {
+            opener($tag, |%h) ~ closer($tag)
+        }
+        when * == 1 {
+            opener($tag, |%h) ~ @inners.first ~ closer($tag)
+        }
+        when * >= 2 {
+            opener($tag, |%h) ~ @inners.join ~ closer($tag)
+        }
+    }
 }
 
 # put in all the tags programmatically
@@ -69,34 +70,3 @@ my package EXPORT::DEFAULT {
     }
 }
 
-
-
-=begin pod
-
-=head1 NAME
-
-HTMX - blah blah blah
-
-=head1 SYNOPSIS
-
-=begin code :lang<raku>
-
-use HTMX;
-
-=end code
-
-=head1 DESCRIPTION
-
-HTMX is ...
-
-=head1 AUTHOR
-
-librasteve <librasteve@furnival.net>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (c) 2024 Henley Cloud Consulting Ltd.
-
-This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
-
-=end pod
