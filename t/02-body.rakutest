@@ -1,10 +1,12 @@
 use Test;
 use HTML::Functional;
 
+#had to fine tune the stock symbol newline to make test work (editor trims trailing spaces)
+
 my $body = body [
     div( :class<jumbotron>, [
         h1("Welcome to Dunder Mifflin!"),                          #use parens to stop <h1> slurping <p>
-        p  "Dunder Mifflin Inc. (stock symbol {strong 'DMI'}) " ~
+        p  "Dunder Mifflin Inc. (stock symbol{strong 'DMI'})\n" ~
             q:to/END/;
             is a micro-cap regional paper and office
             supply distributor with an emphasis on servicing
@@ -20,18 +22,19 @@ my $body = body [
 
 my $expect =
     q:to/END/;
+
     <body>
-      <div class="jumbotron">
-      <h1>Welcome to Dunder Mifflin!</h1>
-      <p>Dunder Mifflin Inc. (stock symbol <strong>DMI</strong>) is a micro-cap regional paper and office
+    <div class="jumbotron">
+    <h1>Welcome to Dunder Mifflin!</h1>
+    <p>Dunder Mifflin Inc. (stock symbol
+    <strong>DMI</strong>)
+    is a micro-cap regional paper and office
     supply distributor with an emphasis on servicing
     small-business clients.
     </p>
     </div>
-      <p hx-get="https://v2.jokeapi.dev/joke/Any?format=txt&safe-mode">
-      Click Me
-      <p>&lt;div class=&quot;content&quot;&gt;Escaped &amp; Raw HTML!&lt;/div&gt;</p>
-    </p>
+    <p hx-get="https://v2.jokeapi.dev/joke/Any?format=txt&safe-mode">Click Me</p>
+    <p>&lt;div class=&quot;content&quot;&gt;Escaped &amp; Raw HTML!&lt;/div&gt;</p>
     </body>
     END
 

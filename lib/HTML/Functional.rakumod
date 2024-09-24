@@ -28,15 +28,15 @@ sub text(Str:D() $s) is export {
 
 ##### HTMX Tag Export #####
 
-sub attrs(%h) {
+sub attrs(%h) is export {
     +%h ?? (' ' ~ %h.map({.key ~ '="' ~ .value ~ '"'}).join(' ') ) !! ''
 }
 
-sub opener($tag, *%h) {
+sub opener($tag, *%h) is export {
     "\n" ~ '<' ~ $tag ~ attrs(%h) ~ '>'
 }
 
-sub inner(@inners) {
+sub inner(@inners) is export {
     given @inners {
         when * == 0 {   ''   }
         when * == 1 { .first }
@@ -44,17 +44,17 @@ sub inner(@inners) {
     }
 }
 
-sub closer($tag, :$nl) {
+sub closer($tag, :$nl) is export {
     ($nl ?? "\n" !! '') ~
     '</' ~ $tag ~ '>'
 }
 
-sub do-regular-tag($tag, *@inners, *%h) {
+sub do-regular-tag($tag, *@inners, *%h) is export {
     my $nl = @inners >= 2;
     opener($tag, |%h) ~ inner(@inners) ~ closer($tag, :$nl)
 }
 
-sub do-singular-tag($tag, *%h) {
+sub do-singular-tag($tag, *%h) is export {
     "\n" ~ '<' ~ $tag ~ attrs(%h) ~ ' />'
 }
 
