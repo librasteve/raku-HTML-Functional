@@ -28,37 +28,41 @@ sub text(Str:D() $s) is export {
 
 ##### HTMX Tag Export #####
 
-my @regular-tags = (@all-tags (-) @singular-tags).keys;  #Set difference
-
-
 sub attrs(%h) {
     +%h ?? (' ' ~ %h.map({.key ~ '="' ~ .value ~ '"'}).join(' ') ) !! ''
 }
 
 sub opener($tag, *%h) {
-    '<' ~ $tag ~ attrs(%h) ~ '>'
+    "\n" ~ '<' ~ $tag ~ attrs(%h) ~ '>'
 }
 
-sub closer($tag) {
-    '</' ~ $tag ~ '>'
-}
-
-sub do-regular-tag( $tag, *@inners, *%h ) {
+sub inner(@inners) {
     given @inners {
-        when * == 0 {
-            opener($tag, |%h) ~ closer($tag)
-        }
-        when * == 1 {
-            opener($tag, |%h) ~ @inners.first ~ closer($tag)
-        }
-        when * >= 2 {
-            opener($tag, |%h) ~ @inners.join ~ closer($tag)
-        }
+        when * == 0 {   ''   }
+        when * == 1 { .first }
+        when * >= 2 { .join  }
     }
 }
 
+sub closer($tag, :$nl) {
+    ($nl ?? "\n" !! '') ~
+    '</' ~ $tag ~ '>'
+}
+
+sub do-regular-tag($tag, *@inners, *%h) {
+    my $nl = @inners >= 2;
+    opener($tag, |%h) ~ inner(@inners) ~ closer($tag, :$nl)
+}
+
+sub do-singular-tag($tag, *%h) {
+    "\n" ~ '<' ~ $tag ~ attrs(%h) ~ ' />'
+}
+
+
 # put in all the tags programmatically
 # viz. https://docs.raku.org/language/modules#Exporting_and_selective_importing
+
+my @regular-tags = (@all-tags (-) @singular-tags).keys;  #Set difference (-)
 
 my package EXPORT::DEFAULT {
     for @regular-tags -> $tag {
