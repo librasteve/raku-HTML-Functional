@@ -11,7 +11,7 @@ Best practice is to HTML::Escape all tag inner text, two equivalent options are 
 - the caret prefix ```^'mytext'```
 
 IMPORTANT:
-HTML::Escape is not applied by default to inner tags in order to facilitate the flexible application of Raku quoting constructs such as ```{strong 'DMI'}``` (as shown in the synopsis). Therefore care must be taken to always apply HTML::Escape particularly where this is stored in a variable and/or comes from tainted user input.
+HTML::Escape is not applied by default to inner tags, so that Raku quoting constructs such as ```{strong 'DMI'}``` (as shown in the synopsis) can be fully utilized. Therefore care must be taken to always apply HTML::Escape particularly where this is stored in a variable and/or comes from tainted user input.
 
 Contributions welcome - by PR please.
 
