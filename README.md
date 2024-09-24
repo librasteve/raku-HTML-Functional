@@ -6,9 +6,18 @@ DESCRIPTION
 
 Provides a Functional interface style for HTML tags and attributes.
 
-Use the section character ```§``` to HTML::Escape inner text.
+Best practice is to HTML::Escape all tag inner text, two equivalent options are provided for this:
+- the _text_ subroutine ```text('mytext')```
+- the caret prefix ```^'mytext'```
+
+IMPORTANT:
+HTML::Escape is not applied by default to inner tags in order to facilitate the flexible application of Raku quoting constructs such as ```{strong 'DMI'}``` (as shown in the synopsis). Therefore care must be taken to always apply HTML::Escape particularly where this is stored in a variable and/or comes from tainted user input.
 
 Contributions welcome - by PR please.
+
+TODOS
+=====
+ - [ ] add ```my Str = 'xyz' but Tainted``` class / constraint
 
 SYNOPSIS
 ========
@@ -55,7 +64,7 @@ my $body = body [
     p :hx-get<https://v2.jokeapi.dev/joke/Any?format=txt&safe-mode>,
         "Click Me",
 
-    p §'<div class="content">Escaped & Raw HTML!</div>',
+    p ^'<div class="content">Escaped & Raw HTML!</div>',
 ];
 
 my $html = html :lang<en>, [

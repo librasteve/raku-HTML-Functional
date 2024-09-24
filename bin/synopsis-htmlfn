@@ -18,8 +18,8 @@ my $head = head [
     style(
         q:to/END/;
             .jumbotron {
-              background-color: #e6ffe6;
-              text-align: center;
+                background-color: #e6ffe6;
+                text-align: center;
             }
         END
     ),
@@ -39,7 +39,7 @@ my $body = body [
     p :hx-get<https://v2.jokeapi.dev/joke/Any?format=txt&safe-mode>,
         "Click Me",
 
-    p §'<div class="content">Escaped & Raw HTML!</div>',
+    p ^'<div class="content">Escaped & Raw HTML!</div>',
 ];
 
 my $html = html :lang<en>, [
