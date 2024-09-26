@@ -2,5 +2,10 @@ Revision history for HTML::Functional
 
 {{$NEXT}}
 
+0.0.2  2024-09-25T18:03:04-07:00
+    - Improve tag code
+    - Solidify HTML::Escape subroutines
+    - Export secondary tag subs for HTML::OO support
+
 0.0.1  2024-08-25T13:14:23+01:00
     - Initial version
