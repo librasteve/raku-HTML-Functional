@@ -10,11 +10,9 @@ my $head = head [
 
     title( "Raku HTML::Functional" ),
 
-    script( src  => "https://unpkg.com/htmx.org@1.7.0", ),
+    script( :src<https://unpkg.com/htmx.org@1.7.0"> ),
+    link( :rel<stylesheet>, :href<https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css> ),
 
-    link(   rel  => "stylesheet",
-            href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
-    ),
     style(
         q:to/END/;
         .jumbotron {

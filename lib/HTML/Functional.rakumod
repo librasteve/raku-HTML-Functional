@@ -26,7 +26,7 @@ sub text(Str:D() $s) is export {
     escape-html($s)
 }
 
-##### HTMX Tag Export #####
+##### HTML Tag Export #####
 
 sub attrs(%h) is export {
     +%h ?? (' ' ~ %h.map({.key ~ '="' ~ .value ~ '"'}).join(' ') ) !! ''
