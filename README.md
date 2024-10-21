@@ -36,17 +36,15 @@ my $head = head [
 
     title( "Raku HTML::Functional" ),
 
-    script( src  => "https://unpkg.com/htmx.org@1.7.0", ),
+    script( :src<https://unpkg.com/htmx.org@1.7.0"> ),
+    link( :rel<stylesheet>, :href<https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css> ),
 
-    link(   rel  => "stylesheet",
-            href => "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
-    ),
     style(
-        q:to/END/;
-            .jumbotron {
-              background-color: #e6ffe6;
-              text-align: center;
-            }
+    q:to/END/;
+        .jumbotron {
+            background-color: #e6ffe6;
+            text-align: center;
+        }
         END
     ),
 ];
@@ -55,17 +53,17 @@ my $body = body [
     div( :class<jumbotron>, [
         h1("Welcome to Dunder Mifflin!"),                          #use parens to stop <h1> slurping <p>
         p  "Dunder Mifflin Inc. (stock symbol {strong 'DMI'}) " ~
-            q:to/END/;
+                q:to/END/;
             is a micro-cap regional paper and office
             supply distributor with an emphasis on servicing
             small-business clients.
             END
     ]),
 
-    p :hx-get<https://v2.jokeapi.dev/joke/Any?format=txt&safe-mode>,
-        "Click Me",
+    p( :hx-get<https://v2.jokeapi.dev/joke/Any?format=txt&safe-mode>,
+            "Click Me" ),
 
-    p ^'<div class="content">Escaped & Raw HTML!</div>',
+    p( ^'<div class="content">Escaped & Raw HTML!</div>' ),
 ];
 
 my $html = html :lang<en>, [
@@ -75,6 +73,7 @@ my $html = html :lang<en>, [
 
 say "<!doctype html>$html";
 ```
+_Inspired by https://elmprogramming.com/building-a-simple-page-in-elm.html_
 
 AUTHOR
 ======
