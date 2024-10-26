@@ -40,13 +40,12 @@ my $head = head [
     link :rel<stylesheet>, :href<https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css>;
 
     style
-        q:to/END/;
+            q:to/END/;
         .jumbotron {
             background-color: #e6ffe6;
             text-align: center;
         }
         END
-    ;
 ];
 
 my $body = body [
