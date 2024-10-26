@@ -30,43 +30,41 @@ use v6.d;
 use HTML::Functional;
 
 my $head = head [
-    meta( :charset<utf-8> ),
-    meta( :name<viewport>, :content<width=device-width, initial-scale=1> ),
-    meta( :name<description>, :content<raku does htmx> ),
+    meta :charset<utf-8>;
+    meta :name<viewport>, :content<width=device-width, initial-scale=1>;
+    meta :name<description>, :content<raku does htmx>;
 
-    title( "Raku HTML::Functional" ),
+    title "Raku HTML::Functional";
 
-    script( :src<https://unpkg.com/htmx.org@1.7.0"> ),
-    link( :rel<stylesheet>, :href<https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css> ),
+    script :src<https://unpkg.com/htmx.org@1.7.0">;
+    link :rel<stylesheet>, :href<https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css>;
 
-    style(
-    q:to/END/;
+    style
+            q:to/END/;
         .jumbotron {
             background-color: #e6ffe6;
             text-align: center;
         }
         END
-    ),
+    ;
 ];
 
-my $body =
-
-        body [
-            div :class<jumbotron>, [
-                h1 "Welcome to Dunder Mifflin!";                                    #use ; to stop <h1> slurping <p>
-                p  "Dunder Mifflin Inc. (stock symbol {strong 'DMI'}) " ~
-                        q:to/END/;
+my $body = body [
+    div :class<jumbotron>, [
+        h1 "Welcome to Dunder Mifflin!";                                    #use ; to stop <h1> slurping <p>
+        p  "Dunder Mifflin Inc. (stock symbol {strong 'DMI'}) " ~
+                q:to/END/;
             is a micro-cap regional paper and office
             supply distributor with an emphasis on servicing
             small-business clients.
             END
     ];
 
-            p :hx-get<https://v2.jokeapi.dev/joke/Any?format=txt&safe-mode>,
-                    "Click Me";
+    p :hx-get<https://v2.jokeapi.dev/joke/Any?format=txt&safe-mode>,
+            "Click Me";
 
-            p ^'<div class="content">Escaped & Raw HTML!</div>';
-        ];
+    p ^'<div class="content">Escaped & Raw HTML!</div>';
+];
 
 my $html = html :lang<en>, [
     $head,
