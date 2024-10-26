@@ -20,7 +20,6 @@ my $head = head [
             text-align: center;
         }
         END
-    ;
 ];
 
 my $body = body [
