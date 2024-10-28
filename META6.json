@@ -6,6 +6,7 @@
   "build-depends": [
   ],
   "depends": [
+    "HTML::Escape"
   ],
   "description": "blah blah blah",
   "license": "Artistic-2.0",
@@ -20,5 +21,5 @@
   ],
   "test-depends": [
   ],
-  "version": "0.0.3"
+  "version": "0.0.4"
 }

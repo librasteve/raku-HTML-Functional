@@ -2,6 +2,9 @@ Revision history for HTML::Functional
 
 {{$NEXT}}
 
+0.0.4  2024-10-28T17:26:56Z
+    - add HTML::Escape dependency
+
 0.0.3  2024-10-26T18:54:12+01:00
     - Improve synopsis, use of ;
 
