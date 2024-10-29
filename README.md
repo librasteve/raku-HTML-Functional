@@ -18,6 +18,7 @@ Contributions welcome - by PR please.
 TODOS
 =====
  - [ ] add ```my Str = 'xyz' but Tainted``` class / constraint
+ - [ ] convert to RakuAST with default escaping (see discord [thread](https://discord.com/channels/538407879980482560/1300141814652735600/1300783904357224522))
 
 
 SYNOPSIS
