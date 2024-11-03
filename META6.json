@@ -8,7 +8,7 @@
   "depends": [
     "HTML::Escape"
   ],
-  "description": "blah blah blah",
+  "description": "HTML tags in functional style",
   "license": "Artistic-2.0",
   "name": "HTML::Functional",
   "provides": {
