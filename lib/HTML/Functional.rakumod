@@ -74,3 +74,18 @@ my package EXPORT::DEFAULT {
     }
 }
 
+# exclude tags that overlap with Cro & HTML::Components
+
+my @exclude-tags = <header table template>;
+my @regular-cro = @all-tags.grep: { $_ ∉ @exclude-tags };
+
+my package EXPORT::CRO {
+    for @regular-cro -> $tag {
+        OUR::{'&' ~ $tag} := sub (*@inners, *%h) { do-regular-tag( "$tag", @inners, |%h ) }
+    }
+
+    for @singular-tags -> $tag {
+        OUR::{'&' ~ $tag} := sub (*%h) { do-singular-tag( "$tag", |%h ) }
+    }
+}
+
