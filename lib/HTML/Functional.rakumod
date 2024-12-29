@@ -29,7 +29,12 @@ sub text(Str:D() $s) is export {
 ##### HTML Tag Export #####
 
 sub attrs(%h) is export {
-    +%h ?? (' ' ~ %h.map({.key ~ '="' ~ .value ~ '"'}).join(' ') ) !! ''
+    my @attrs;
+    @attrs.append: %h.keys.grep: { %h{$_} === True };
+    @attrs.map: { %h{$_}:delete };
+
+    @attrs.append: %h.map({.key ~ '="' ~ .value ~ '"'});
+    @attrs ?? ' ' ~ @attrs.join(' ') !! '';
 }
 
 sub opener($tag, *%h) is export {
