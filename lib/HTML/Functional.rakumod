@@ -29,10 +29,18 @@ sub text(Str:D() $s) is export {
 ##### HTML Tag Export #####
 
 sub attrs(%h) is export {
-    my @attrs;
-    @attrs.append: %h.keys.grep: { %h{$_} === True };
+    #| Discard attrs with False or undefined values
+    my @discards = %h.keys.grep: {
+        %h{$_} === False //
+        %h{$_}.undefined
+    };
+    @discards.map: { %h{$_}:delete };
+
+    #| Bool attrs eg <input type="checkbox" checked>
+    my @attrs = %h.keys.grep: { %h{$_} === True };
     @attrs.map: { %h{$_}:delete };
 
+    #| Attrs as key-value pairs
     @attrs.append: %h.map({.key ~ '="' ~ .value ~ '"'});
     @attrs ?? ' ' ~ @attrs.join(' ') !! '';
 }
