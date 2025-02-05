@@ -1,6 +1,8 @@
 Revision history for HTML::Functional
 
 {{$NEXT}}
+
+0.0.8  2025-02-05T18:52:00Z
     - Add EXPORT::BASE
 
 0.0.7  2024-12-29T18:23:23Z

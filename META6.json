@@ -1,18 +1,25 @@
 {
-    "name": "HTML::Functional",
-    "description": "HTML tags in functional style",
-    "version": "0.0.7",
-    "authors": [
-        "librasteve"
-    ],
-    "auth": "zef:librasteve",
-    "depends": [
-        "HTML::Escape"
-    ],
-    "build-depends": [],
-    "provides": {
-        "HTML::Functional": "lib/HTML/Functional.rakumod"
-    },
-    "license": "Artistic-2.0",
-    "source-url": "https://github.com/librasteve/raku-HTML-Functional.git"
+  "auth": "zef:librasteve",
+  "authors": [
+    "librasteve"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+    "HTML::Escape"
+  ],
+  "description": "HTML tags in functional style",
+  "license": "Artistic-2.0",
+  "name": "HTML::Functional",
+  "provides": {
+    "HTML::Functional": "lib/HTML/Functional.rakumod"
+  },
+  "resources": [
+  ],
+  "source-url": "https://github.com/librasteve/raku-HTML-Functional.git",
+  "tags": [
+  ],
+  "test-depends": [
+  ],
+  "version": "0.0.8"
 }
