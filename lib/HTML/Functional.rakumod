@@ -57,17 +57,17 @@ sub inner(@inners) is export {
     }
 }
 
-sub closer($tag, :$nl) is export {
+sub closer($tag, :$nl) is export(:MANDATORY)  {
     ($nl ?? "\n" !! '') ~
     '</' ~ $tag ~ '>'
 }
 
-sub do-regular-tag($tag, *@inners, *%h) is export {
+sub do-regular-tag($tag, *@inners, *%h) is export(:MANDATORY)  {
     my $nl = @inners >= 2;
     opener($tag, |%h) ~ inner(@inners) ~ closer($tag, :$nl)
 }
 
-sub do-singular-tag($tag, *%h) is export {
+sub do-singular-tag($tag, *%h) is export(:MANDATORY)  {
     "\n" ~ '<' ~ $tag ~ attrs(%h) ~ ' />'
 }
 
@@ -89,16 +89,34 @@ my package EXPORT::DEFAULT {
 
 # exclude tags that overlap with Cro & HTML::Components
 
-my @exclude-tags = <header table template>;
-my @regular-cro = @all-tags.grep: { $_ ∉ @exclude-tags };
+my @exclude-cro = <header table template>;
+
+my @regular-cro  = @regular-tags.grep:  { $_ ∉ @exclude-cro };
+my @singular-cro = @singular-tags.grep: { $_ ∉ @exclude-cro };
 
 my package EXPORT::CRO {
     for @regular-cro -> $tag {
         OUR::{'&' ~ $tag} := sub (*@inners, *%h) { do-regular-tag( "$tag", @inners, |%h ) }
     }
 
-    for @singular-tags -> $tag {
+    for @singular-cro -> $tag {
         OUR::{'&' ~ $tag} := sub (*%h) { do-singular-tag( "$tag", |%h ) }
     }
 }
 
+# exclude tags that overlap with Cro & HTML::Components & BaseLib
+
+my @exclude-base  = <header table template script>;
+
+my @regular-base  = @regular-tags.grep:  { $_ ∉ @exclude-base };
+my @singular-base = @singular-tags.grep: { $_ ∉ @exclude-base };
+
+my package EXPORT::BASE {
+    for @regular-base -> $tag {
+        OUR::{'&' ~ $tag} := sub (*@inners, *%h) { do-regular-tag( "$tag", @inners, |%h ) }
+    }
+
+    for @singular-base -> $tag {
+        OUR::{'&' ~ $tag} := sub (*%h) { do-singular-tag( "$tag", |%h ) }
+    }
+}
